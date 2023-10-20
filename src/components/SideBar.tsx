@@ -1,11 +1,8 @@
+import { GenreResponseProps } from "../App";
 import { Button } from "./Button";
 
-interface SideBarProps {
-  genres: Array<{
-    id: number;
-    name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-    title: string;
-  }>;
+export interface SideBarProps {
+  genres: GenreResponseProps[];
   selectedGenreId: number;
   buttonClickCallback: (args: any) => void;
 }

@@ -1,25 +1,13 @@
+import { memo } from "react";
+import { GenreResponseProps, MovieProps } from "../App";
 import { MovieCard } from "./MovieCard";
 
 interface ContentProps {
-  selectedGenre: {
-    id: number;
-    name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-    title: string;
-  };
+  selectedGenre: GenreResponseProps;
 
-  movies: Array<{
-    imdbID: string;
-    Title: string;
-    Poster: string;
-    Ratings: Array<{
-      Source: string;
-      Value: string;
-    }>;
-    Runtime: string;
-  }>;
+  movies: MovieProps[];
 }
-
-export function Content({ selectedGenre, movies }: ContentProps) {
+function ContentComponent({ selectedGenre, movies }: ContentProps) {
   return (
     <div className="container">
       <header>
@@ -36,3 +24,10 @@ export function Content({ selectedGenre, movies }: ContentProps) {
     </div>
   )
 }
+
+export const Content = memo(ContentComponent, (prevProps, nextProps) => {
+  return (
+    Object.is(prevProps.movies, nextProps.movies) ||
+    Object.is(prevProps.selectedGenre, nextProps.selectedGenre)
+  )
+});
